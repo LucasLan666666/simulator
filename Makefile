@@ -128,6 +128,7 @@ GSIM_SRCS = $(foreach x, src $(PARSER_DIR), $(wildcard $(x)/*.cpp))
 
 GSIM_INC_DIR = include $(PARSER_DIR)/include $(PARSER_BUILD_DIR)
 CXXFLAGS += -ggdb -O3 -MMD $(addprefix -I,$(GSIM_INC_DIR)) -Wall -Werror --std=c++17
+CXXFLAGS += -pthread -gdwarf-4
 
 ifeq ($(DEBUG),1)
 	CXXFLAGS += -DDEBUG
@@ -188,6 +189,7 @@ EMU_SRCS = $(EMU_MAIN_SRCS) $(EMU_GEN_SRCS)
 EMU_CFLAGS := -O1 -MMD $(addprefix -I, $(abspath $(GEN_CPP_DIR))) $(EMU_CFLAGS) # allow to overwrite optimization level
 EMU_CFLAGS += $(MODE_FLAGS) $(CFLAGS_DUT) -Wno-parentheses-equality
 EMU_CFLAGS += -fbracket-depth=2048
+EMU_CFLAGS += -D_GNU_SOURCE
 #EMU_CFLAGS += -fsanitize=address -fsanitize-address-use-after-scope
 #EMU_CFLAGS += -fsanitize=undefined -fsanitize=pointer-compare -fsanitize=pointer-subtract
 #EMU_CFLAGS += -pg -ggdb
